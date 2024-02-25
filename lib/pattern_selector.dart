@@ -22,12 +22,25 @@ class PatternSelector extends StatefulWidget {
 }
 
 class _PatternSelectorState extends State<PatternSelector> {
-
   List<Pattern> patterns = [];
+  final baseURL = 'http://127.0.0.1:8008';
 
-  Future<void> fetchPatterns() async {
+  Future<http.Response> _updatePattern(String patternId) {
+    return http.put(
+      Uri.parse('$baseURL/patterns/$patternId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'patternId': patternId,
+      }),
+    );
+  }
+
+  Future<void> _fetchPatterns() async {
     try {
-      final response = await http.get(Uri.parse('http://127.0.0.1:8008/patterns'));
+      final response =
+          await http.get(Uri.parse('$baseURL/patterns'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
@@ -49,31 +62,43 @@ class _PatternSelectorState extends State<PatternSelector> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              itemCount: patterns.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(patterns[index].id),
-                );
-              },
-            ),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            itemCount: patterns.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ElevatedButton(
+                  onPressed: () {
+                    _updatePattern(patterns[index].id);
+                  },
+                  child: Text(patterns[index].id),
+                ),
+              );
+            },
           ),
-          FetchPatternsButton(),
-        ],
-      );
+        ),
+        FetchPatternsButton(
+          onFetchPatterns: _fetchPatterns,
+        ),
+      ],
+    );
   }
 }
 
 class FetchPatternsButton extends StatelessWidget {
-  const FetchPatternsButton({super.key});
+  const FetchPatternsButton({
+    super.key,
+    required this.onFetchPatterns,
+  });
+
+  final void Function() onFetchPatterns;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: fetchPatterns,
+      onPressed: onFetchPatterns,
       child: const Text('Fetch patterns'),
     );
   }

@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:goledz_controller/pattern_selector.dart';
 
+
+var kColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color.fromARGB(255, 62, 60, 181),
+);
+
 void main() {
-  runApp(const GoLEDzController());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((fn) {
+    runApp(const GoLEDzController());
+  });
 }
 
 class GoLEDzController extends StatelessWidget {
@@ -12,8 +23,31 @@ class GoLEDzController extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GoLEDz Controller',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+      theme: ThemeData().copyWith(
+        colorScheme: kColorScheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kColorScheme.onPrimaryContainer,
+          foregroundColor: kColorScheme.primaryContainer,
+        ),
+        cardTheme: const CardTheme().copyWith(
+          color: kColorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorScheme.primaryContainer,
+          ),
+        ),
+        textTheme: ThemeData().textTheme.copyWith(
+              titleLarge: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kColorScheme.onSecondaryContainer,
+                fontSize: 16,
+              ),
+            ),
       ),
       home: const HomePage(),
     );
@@ -31,7 +65,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('GoLEDz Controller Home'),
       ),
       body: const PatternSelector(),
     );
