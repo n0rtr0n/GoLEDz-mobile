@@ -1,7 +1,13 @@
 import 'dart:convert';
+import 'package:goledz_controller/models/parameters.dart';
+import 'package:goledz_controller/widgets/bool_parameter.dart';
+import 'package:goledz_controller/widgets/color_parameter.dart';
+import 'package:goledz_controller/widgets/float_parameter.dart';
+import 'package:goledz_controller/widgets/int_parameter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:goledz_controller/models/pattern.dart';
+
 class PatternSelector extends StatefulWidget {
   const PatternSelector({super.key});
 
@@ -20,7 +26,7 @@ class _PatternSelectorState extends State<PatternSelector> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
-        'parameters': pattern.parameters,
+        'parameters': pattern.parameters, // TODO: pattern.parameters.toJSON()
       }),
     );
   }
@@ -57,12 +63,57 @@ class _PatternSelectorState extends State<PatternSelector> {
           child: ListView.builder(
             itemCount: patterns.length,
             itemBuilder: (context, index) {
+              final currentPattern = patterns[index];
+              final parameters = [];
+              currentPattern.parameters.forEach((key, item) => parameters.add(item));
               return Card(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _updatePattern(index, patterns[index]);
-                  },
-                  child: Text(patterns[index].id),
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        _updatePattern(index, currentPattern);
+                      },
+                      child: Text(patterns[index].id),
+                    ),
+                    const SizedBox(width: 4,height: 4,),
+                    ListView.builder(
+                      itemCount: parameters.length,
+                      itemBuilder: (context, index) {
+                        final AdjustableParameter param = parameters[index];
+                        final Widget widget;
+
+                        if (param is FloatParameter) {
+                          widget = FloatParameterWidget(parameter: param);
+                        } else if (param is BoolParameter) {
+                          widget = BoolParameterWidget(parameter: param);
+                        } else if (param is IntParameter) {
+                          widget = IntParameterWidget(parameter: param); 
+                        } else if (param is ColorParameter) {
+                          widget = ColorParameterWidget(parameter: param); 
+                        } else {
+                          widget = const Card(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 16,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "non-implemented param.value",
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+
+                        return widget;
+                      },
+                      shrinkWrap: true,
+                    ),
+                  ],
                 ),
               );
             },
