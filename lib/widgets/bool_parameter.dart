@@ -4,11 +4,10 @@ import 'package:goledz_controller/models/parameters.dart';
 
 class BoolParameterWidget extends StatelessWidget {
   final BoolParameter parameter;
+  final void Function(bool value) onParameterUpdate;
 
-  const BoolParameterWidget({
-    super.key,
-    required this.parameter,
-  });
+  const BoolParameterWidget(
+      {super.key, required this.parameter, required this.onParameterUpdate});
 
   @override
   Widget build(Object context) {
@@ -30,8 +29,9 @@ class BoolParameterWidget extends StatelessWidget {
             const Text(
               "Value",
             ),
-            Text(
-              parameter.value.toString(),
+            Switch(
+              value: parameter.value,
+              onChanged: onParameterUpdate,
             ),
           ],
         ),

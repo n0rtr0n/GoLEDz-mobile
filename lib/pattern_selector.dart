@@ -66,7 +66,8 @@ class _PatternSelectorState extends State<PatternSelector> {
             itemBuilder: (context, index) {
               final currentPattern = patterns[index];
               final parameters = [];
-              currentPattern.parameters.forEach((key, item) => parameters.add(item));
+              currentPattern.parameters
+                  .forEach((key, item) => parameters.add(item));
               return Card(
                 child: Column(
                   children: [
@@ -76,21 +77,50 @@ class _PatternSelectorState extends State<PatternSelector> {
                       },
                       child: Text(patterns[index].id),
                     ),
-                    const SizedBox(width: 4,height: 4,),
+                    const SizedBox(
+                      width: 4,
+                      height: 4,
+                    ),
                     ListView.builder(
                       itemCount: parameters.length,
                       itemBuilder: (context, index) {
                         final AdjustableParameter param = parameters[index];
                         final Widget widget;
-
                         if (param is FloatParameter) {
-                          widget = FloatParameterWidget(parameter: param);
+                          void onParameterUpdate(double value) {
+                            setState(() {
+                              parameters[index].setValue(value);
+                            });
+                          }
+
+                          widget = FloatParameterWidget(
+                            parameter: param,
+                            onParameterUpdate: onParameterUpdate,
+                          );
                         } else if (param is BoolParameter) {
-                          widget = BoolParameterWidget(parameter: param);
+                          void onParameterUpdate(bool value) {
+                            setState(() {
+                              parameters[index].setValue(value);
+                            });
+                          }
+
+                          widget = BoolParameterWidget(
+                            parameter: param,
+                            onParameterUpdate: onParameterUpdate,
+                          );
                         } else if (param is IntParameter) {
-                          widget = IntParameterWidget(parameter: param); 
+                          void onParameterUpdate(double value) {
+                            setState(() {
+                              parameters[index].setValue(value.toInt());
+                            });
+                          }
+
+                          widget = IntParameterWidget(
+                            parameter: param,
+                            onParameterUpdate: onParameterUpdate,
+                          );
                         } else if (param is ColorParameter) {
-                          widget = ColorParameterWidget(parameter: param); 
+                          widget = ColorParameterWidget(parameter: param);
                         } else {
                           widget = const Card(
                             child: Padding(
@@ -113,6 +143,7 @@ class _PatternSelectorState extends State<PatternSelector> {
                         return widget;
                       },
                       shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                     ),
                   ],
                 ),

@@ -15,8 +15,6 @@ class Pattern {
 
     json['parameters'].forEach((k, parameter) {
       try {
-        // print("json of parameter is");
-        // print(parameter);
         parameters[k] = AdjustableParameter.fromJson(k, parameter);
       } catch (e){
         print(e);

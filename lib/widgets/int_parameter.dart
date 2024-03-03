@@ -4,10 +4,13 @@ import 'package:goledz_controller/models/parameters.dart';
 
 class IntParameterWidget extends StatelessWidget {
   final IntParameter parameter;
+  // we'll perform the conversion directly within this function
+  final void Function(double value) onParameterUpdate;
 
   const IntParameterWidget({
     super.key,
     required this.parameter,
+    required this.onParameterUpdate,
   });
 
   @override
@@ -31,7 +34,14 @@ class IntParameterWidget extends StatelessWidget {
               "Value",
             ),
             Text(
-              parameter.value.toString(),
+              parameter.value.toInt().toString(),
+            ),
+            Slider(
+              value: parameter.value.toDouble(),
+              onChanged: onParameterUpdate,
+              min: parameter.min.toDouble(),
+              max: parameter.max.toDouble(),
+              divisions: parameter.max - parameter.min,
             ),
           ],
         ),

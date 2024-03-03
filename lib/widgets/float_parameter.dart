@@ -4,10 +4,12 @@ import 'package:goledz_controller/models/parameters.dart';
 
 class FloatParameterWidget extends StatelessWidget {
   final FloatParameter parameter;
+  final void Function(double value) onParameterUpdate;
 
   const FloatParameterWidget({
     super.key,
     required this.parameter,
+    required this.onParameterUpdate,
   });
 
   @override
@@ -32,6 +34,12 @@ class FloatParameterWidget extends StatelessWidget {
             ),
             Text(
               parameter.value.toString(),
+            ),
+            Slider(
+              value: parameter.value,
+              onChanged: onParameterUpdate,
+              min: parameter.min,
+              max: parameter.max,
             ),
           ],
         ),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:goledz_controller/models/color.dart';
 
 abstract class AdjustableParameter {
@@ -14,7 +12,7 @@ abstract class AdjustableParameter {
 
     switch (type) {
       case 'int':
-        final int value = json['value'];
+        final value = json['value'];
         final int min = json['min'];
         final int max = json['max'];
         return IntParameter(label: label, value: value, min: min, max: max);
@@ -51,9 +49,9 @@ class FloatParameter implements AdjustableParameter {
   }
 
   final String label;
-  final double value;
   final double min;
   final double max;
+  double value;
 
   FloatParameter({
     required this.label,
@@ -61,6 +59,10 @@ class FloatParameter implements AdjustableParameter {
     required this.min,
     required this.max,
   });
+
+  setValue(double newValue) {
+    value = newValue;
+  }
 }
 
 class IntParameter implements AdjustableParameter {
@@ -73,9 +75,9 @@ class IntParameter implements AdjustableParameter {
   }
   
   final String label;
-  final int value;
   final int min;
   final int max;
+  int value;
 
   IntParameter({
     required this.label,
@@ -83,6 +85,10 @@ class IntParameter implements AdjustableParameter {
     required this.min,
     required this.max,
   });
+
+  setValue(int newValue) {
+    value = newValue;
+  }
 }
 
 class BoolParameter implements AdjustableParameter {
@@ -95,12 +101,16 @@ class BoolParameter implements AdjustableParameter {
   }
 
   final String label;
-  final bool value;
+  bool value;
 
   BoolParameter({
     required this.label,
     required this.value,
   });
+
+  setValue(bool newValue) {
+    value = newValue;
+  }
 }
 
 class ColorParameter implements AdjustableParameter {
