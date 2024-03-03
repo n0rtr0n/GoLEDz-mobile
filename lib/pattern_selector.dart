@@ -20,14 +20,15 @@ class _PatternSelectorState extends State<PatternSelector> {
   final baseURL = 'http://127.0.0.1:8008';
 
   Future<http.Response> _updatePattern(int index, Pattern pattern) {
+    final body = jsonEncode(pattern.toJson());
+
+    print(body);
     return http.put(
       Uri.parse('$baseURL/patterns/${pattern.id}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, dynamic>{
-        'parameters': pattern.parameters, // TODO: pattern.parameters.toJSON()
-      }),
+      body: body,
     );
   }
 

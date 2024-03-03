@@ -2,7 +2,10 @@ import 'dart:ffi';
 
 import 'package:goledz_controller/models/color.dart';
 
-class AdjustableParameter {
+abstract class AdjustableParameter {
+
+  Map<String, dynamic> toJson();
+
   factory AdjustableParameter.fromJson(String label, Map<String, dynamic> json) {
     if (!json.containsKey('type')) {
       throw Exception('Adjustable parameter does not have a type');
@@ -39,6 +42,14 @@ class AdjustableParameter {
 }
 
 class FloatParameter implements AdjustableParameter {
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'value': value,
+    };
+  }
+
   final String label;
   final double value;
   final double min;
@@ -53,6 +64,14 @@ class FloatParameter implements AdjustableParameter {
 }
 
 class IntParameter implements AdjustableParameter {
+  
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'value': value,
+    };
+  }
+  
   final String label;
   final int value;
   final int min;
@@ -67,6 +86,14 @@ class IntParameter implements AdjustableParameter {
 }
 
 class BoolParameter implements AdjustableParameter {
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'value': value,
+    };
+  }
+
   final String label;
   final bool value;
 
@@ -77,6 +104,14 @@ class BoolParameter implements AdjustableParameter {
 }
 
 class ColorParameter implements AdjustableParameter {
+  
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'value': value.toJson(),
+    };
+  }
+
   final String label;
   final Color value;
 

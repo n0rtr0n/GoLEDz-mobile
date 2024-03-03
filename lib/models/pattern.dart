@@ -10,6 +10,7 @@ class Pattern {
   });
 
   factory Pattern.fromJson(key, Map<String, dynamic> json) {
+
     final Map<String,AdjustableParameter> parameters = {};
 
     json['parameters'].forEach((k, parameter) {
@@ -24,11 +25,19 @@ class Pattern {
       }
     });
 
-    print(parameters);
-
     return Pattern(
       id: key,
       parameters: parameters,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> params = {};
+    parameters.forEach((key, param) {
+      params[key] = param.toJson();
+    });
+    return {
+      'parameters': params,
+    };
   }
 }
