@@ -20,8 +20,8 @@ class _PatternSelectorState extends State<PatternSelector> {
   final baseURL = 'http://127.0.0.1:8008';
 
   Future<http.Response> _updatePattern(int index, Pattern pattern) {
-    final body = jsonEncode(pattern.toJson());
 
+    final body = jsonEncode(pattern.toJson());
     print(body);
     return http.put(
       Uri.parse('$baseURL/patterns/${pattern.id}'),
@@ -120,7 +120,30 @@ class _PatternSelectorState extends State<PatternSelector> {
                             onParameterUpdate: onParameterUpdate,
                           );
                         } else if (param is ColorParameter) {
-                          widget = ColorParameterWidget(parameter: param);
+                          void onRedParameterUpdate(double value) {
+                            setState(() {
+                              parameters[index].setRed(value.toInt());
+                            });
+                          }
+
+                          void onGreenParameterUpdate(double value) {
+                            setState(() {
+                              parameters[index].setGreen(value.toInt());
+                            });
+                          }
+
+                          void onBlueParameterUpdate(double value) {
+                            setState(() {
+                              parameters[index].setBlue(value.toInt());
+                            });
+                          }
+
+                          widget = ColorParameterWidget(
+                            parameter: param,
+                            onRedParameterUpdate: onRedParameterUpdate,
+                            onGreenParameterUpdate: onGreenParameterUpdate,
+                            onBlueParameterUpdate: onBlueParameterUpdate,
+                          );
                         } else {
                           widget = const Card(
                             child: Padding(

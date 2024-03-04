@@ -129,4 +129,14 @@ class ColorParameter implements AdjustableParameter {
     required this.label,
     required this.value,
   });
+  
+  setRed(int newValue) {
+    value.r = newValue;
+  }
+  setGreen(int newValue) {
+    value.g = newValue;
+  }
+  setBlue(int newValue) {
+    value.b = newValue;
+  }
 }

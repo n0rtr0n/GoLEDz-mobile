@@ -8,9 +8,9 @@ class Color {
     };
   }
 
-  final int r;
-  final int g;
-  final int b;
+  int r;
+  int g;
+  int b;
 
   Color({
     required this.r,

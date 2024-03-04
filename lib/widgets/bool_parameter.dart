@@ -6,8 +6,11 @@ class BoolParameterWidget extends StatelessWidget {
   final BoolParameter parameter;
   final void Function(bool value) onParameterUpdate;
 
-  const BoolParameterWidget(
-      {super.key, required this.parameter, required this.onParameterUpdate});
+  const BoolParameterWidget({
+    super.key,
+    required this.parameter,
+    required this.onParameterUpdate,
+  });
 
   @override
   Widget build(Object context) {
