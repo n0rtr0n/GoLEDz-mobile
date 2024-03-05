@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:goledz_controller/models/parameters.dart';
+import 'package:goledz_controller/widgets/parameter_label.dart';
 
 class BoolParameterWidget extends StatelessWidget {
   final BoolParameter parameter;
@@ -23,15 +24,7 @@ class BoolParameterWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Label",
-            ),
-            Text(
-              parameter.label,
-            ),
-            const Text(
-              "Value",
-            ),
+            ParameterLabel(label: parameter.label),
             Switch(
               value: parameter.value,
               onChanged: onParameterUpdate,

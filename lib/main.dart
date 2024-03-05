@@ -42,12 +42,12 @@ class GoLEDzController extends StatelessWidget {
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
-              titleLarge: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: kColorScheme.onSecondaryContainer,
-                fontSize: 16,
-              ),
-            ),
+          titleLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: kColorScheme.onSecondaryContainer,
+            fontSize: 16,
+          ),
+        ),
       ),
       home: const HomePage(),
     );

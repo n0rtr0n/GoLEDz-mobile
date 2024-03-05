@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:goledz_controller/models/parameters.dart';
+import 'package:goledz_controller/widgets/parameter_label.dart';
 
 class FloatParameterWidget extends StatelessWidget {
   final FloatParameter parameter;
@@ -23,23 +24,19 @@ class FloatParameterWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Label",
-            ),
-            Text(
-              parameter.label,
-            ),
-            const Text(
-              "Value",
-            ),
-            Text(
-              parameter.value.toStringAsFixed(2),
-            ),
-            Slider(
-              value: parameter.value,
-              onChanged: onParameterUpdate,
-              min: parameter.min,
-              max: parameter.max,
+            ParameterLabel(label: parameter.label),
+            Row(
+              children: [
+                Text(
+                  parameter.value.toStringAsFixed(2),
+                ),
+                Slider(
+                  value: parameter.value,
+                  onChanged: onParameterUpdate,
+                  min: parameter.min,
+                  max: parameter.max,
+                ),
+              ],
             ),
           ],
         ),

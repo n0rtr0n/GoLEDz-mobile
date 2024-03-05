@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:goledz_controller/models/parameters.dart';
+import 'package:goledz_controller/widgets/parameter_label.dart';
 
 class IntParameterWidget extends StatelessWidget {
   final IntParameter parameter;
@@ -24,25 +25,21 @@ class IntParameterWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Label",
-            ),
-            Text(
-              parameter.label,
-            ),
-            const Text(
-              "Value",
-            ),
-            Text(
-              parameter.value.toInt().toString(),
-            ),
-            Slider(
-              value: parameter.value.toDouble(),
-              onChanged: onParameterUpdate,
-              min: parameter.min.toDouble(),
-              max: parameter.max.toDouble(),
-              divisions: parameter.max - parameter.min,
-            ),
+            ParameterLabel(label: parameter.label),
+            Row(
+              children: [
+                Text(
+                  parameter.value.toInt().toString(),
+                ),
+                Slider(
+                  value: parameter.value.toDouble(),
+                  onChanged: onParameterUpdate,
+                  min: parameter.min.toDouble(),
+                  max: parameter.max.toDouble(),
+                  divisions: parameter.max - parameter.min,
+                ),
+              ], 
+            )
           ],
         ),
       ),

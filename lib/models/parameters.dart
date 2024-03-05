@@ -25,7 +25,7 @@ abstract class AdjustableParameter {
         final bool value = json['value'];
         return BoolParameter(label: label, value: value);
       case 'color':
-        final color = json['color'];
+        final color = json['value'];
         final Color value = Color(
           r: color['r'],
           b: color['b'],
