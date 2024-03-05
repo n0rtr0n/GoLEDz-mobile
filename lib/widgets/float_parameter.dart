@@ -33,7 +33,7 @@ class FloatParameterWidget extends StatelessWidget {
               "Value",
             ),
             Text(
-              parameter.value.toString(),
+              parameter.value.toStringAsFixed(2),
             ),
             Slider(
               value: parameter.value,
