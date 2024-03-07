@@ -20,7 +20,6 @@ class _PatternSelectorState extends State<PatternSelector> {
   final baseURL = 'http://127.0.0.1:8008';
 
   Future<http.Response> _updatePattern(int index, Pattern pattern) {
-
     final body = jsonEncode(pattern.toJson());
     print(body);
     return http.put(
@@ -71,11 +70,9 @@ class _PatternSelectorState extends State<PatternSelector> {
               return Card(
                 child: Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        _updatePattern(index, currentPattern);
-                      },
-                      child: Text(patterns[index].id),
+                    Text(
+                      patterns[index].id,
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       width: 4,
@@ -167,6 +164,15 @@ class _PatternSelectorState extends State<PatternSelector> {
                       },
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _updatePattern(index, currentPattern);
+                        },
+                        child: const Text("Update pattern"),
+                      ),
                     ),
                   ],
                 ),
