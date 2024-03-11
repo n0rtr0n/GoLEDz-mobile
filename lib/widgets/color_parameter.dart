@@ -44,49 +44,51 @@ class ColorParameterWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Red",
-                ),
-                Text(
-                  parameter.value.r.toString(),
-                ),
-                Slider(
-                  value: parameter.value.r.toDouble(),
-                  onChanged: onRedParameterUpdate,
-                  min: 0.toDouble(),
-                  max: 255.toDouble(),
-                  divisions: 255,
-                ),
-                const Text(
-                  "Green",
-                ),
-                Text(
-                  parameter.value.g.toString(),
-                ),
-                Slider(
-                  value: parameter.value.g.toDouble(),
-                  onChanged: onGreenParameterUpdate,
-                  min: 0.toDouble(),
-                  max: 255.toDouble(),
-                  divisions: 255,
-                ),
-                const Text(
-                  "Blue",
-                ),
-                Text(
-                  parameter.value.b.toString(),
-                ),
-                Slider(
-                  value: parameter.value.b.toDouble(),
-                  onChanged: onBlueParameterUpdate,
-                  min: 0.toDouble(),
-                  max: 255.toDouble(),
-                  divisions: 255,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Red",
+                  ),
+                  Text(
+                    parameter.value.r.toString(),
+                  ),
+                  Slider(
+                    value: parameter.value.r.toDouble(),
+                    onChanged: onRedParameterUpdate,
+                    min: 0.toDouble(),
+                    max: 255.toDouble(),
+                    divisions: 255,
+                  ),
+                  const Text(
+                    "Green",
+                  ),
+                  Text(
+                    parameter.value.g.toString(),
+                  ),
+                  Slider(
+                    value: parameter.value.g.toDouble(),
+                    onChanged: onGreenParameterUpdate,
+                    min: 0.toDouble(),
+                    max: 255.toDouble(),
+                    divisions: 255,
+                  ),
+                  const Text(
+                    "Blue",
+                  ),
+                  Text(
+                    parameter.value.b.toString(),
+                  ),
+                  Slider(
+                    value: parameter.value.b.toDouble(),
+                    onChanged: onBlueParameterUpdate,
+                    min: 0.toDouble(),
+                    max: 255.toDouble(),
+                    divisions: 255,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

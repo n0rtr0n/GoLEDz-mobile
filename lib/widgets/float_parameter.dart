@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:goledz_controller/models/parameters.dart';
 import 'package:goledz_controller/widgets/parameter_label.dart';
@@ -30,11 +31,13 @@ class FloatParameterWidget extends StatelessWidget {
                 Text(
                   parameter.value.toStringAsFixed(2),
                 ),
-                Slider(
-                  value: parameter.value,
-                  onChanged: onParameterUpdate,
-                  min: parameter.min,
-                  max: parameter.max,
+                Expanded(
+                  child: Slider(
+                    value: parameter.value,
+                    onChanged: onParameterUpdate,
+                    min: parameter.min,
+                    max: parameter.max,
+                  ),
                 ),
               ],
             ),

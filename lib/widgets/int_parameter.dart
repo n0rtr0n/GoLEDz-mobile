@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:goledz_controller/models/parameters.dart';
 import 'package:goledz_controller/widgets/parameter_label.dart';
@@ -31,12 +32,14 @@ class IntParameterWidget extends StatelessWidget {
                 Text(
                   parameter.value.toInt().toString(),
                 ),
-                Slider(
-                  value: parameter.value.toDouble(),
-                  onChanged: onParameterUpdate,
-                  min: parameter.min.toDouble(),
-                  max: parameter.max.toDouble(),
-                  divisions: parameter.max - parameter.min,
+                Expanded(
+                  child: Slider(
+                    value: parameter.value.toDouble(),
+                    onChanged: onParameterUpdate,
+                    min: parameter.min.toDouble(),
+                    max: parameter.max.toDouble(),
+                    divisions: parameter.max - parameter.min,
+                  ),
                 ),
               ], 
             )
