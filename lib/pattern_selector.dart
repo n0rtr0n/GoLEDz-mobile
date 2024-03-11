@@ -71,7 +71,7 @@ class _PatternSelectorState extends State<PatternSelector> {
                 child: Column(
                   children: [
                     Text(
-                      patterns[index].id,
+                      patterns[index].label,
                       style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(

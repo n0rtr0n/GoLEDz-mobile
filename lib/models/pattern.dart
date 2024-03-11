@@ -2,10 +2,12 @@ import 'package:goledz_controller/models/parameters.dart';
 
 class Pattern {
   final String id;
+  final String label;
   final Map<String,AdjustableParameter> parameters;
 
   Pattern({
     required this.id,
+    required this.label,
     required this.parameters,
   });
 
@@ -23,8 +25,11 @@ class Pattern {
       }
     });
 
+    final label = json['label'];
+
     return Pattern(
       id: key,
+      label: label,
       parameters: parameters,
     );
   }
