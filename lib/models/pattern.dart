@@ -20,8 +20,6 @@ class Pattern {
         parameters[k] = AdjustableParameter.fromJson(k, parameter);
       } catch (e){
         print(e);
-        print(key);
-        print(parameter);
       }
     });
 
